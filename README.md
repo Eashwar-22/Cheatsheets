@@ -1,5 +1,4 @@
 # Cheatsheets
-## git
 
 ## git
 Listing out only the basic commands needed for DS workflow on a daily basis.
