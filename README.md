@@ -17,6 +17,18 @@
 > categorical vs numerical vs label : barplot(categorical,numerical,hue=label)<br>
 > numerical vs numerical vs label : scatterplot(numerical,numerical,hue=label)<br>
 
+* EDA Plots:
+> ```
+> import seaborn as sns
+> import matplotlib.pyplot as plt
+> %matplotllib inline
+> plt.figure(figsize=(10,8))
+> plt.subplot(211) # 1st row plot#1
+> sns.plot...
+> plt.subplot(212) # 2nd row plot#2
+> sns.plot... 
+> ```
+
 * Classification Metrics : 
 > Confusion matrix<br>
 > accuracy<br>
