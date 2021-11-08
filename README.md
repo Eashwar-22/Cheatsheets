@@ -34,3 +34,38 @@
 > accuracy<br>
 > precision, recall<br>
 > classification report<br>
+
+**Pipelines**
+```
+* model = Pipeline([ ("name",Transformer), 
+                     ("name",Estimator) ])
+* multiple_transform = make_column_transformer((Transformer,[columns]),
+                                               (Transformer,[columns]),
+                                                 ....
+                                               )
+  model = Pipeline([ ("name",multiple_transform) , 
+                     ("name",Estimator) ])
+
+Eg: 
+
+1. inp1, target
+   inp1 -> transformer1()
+
+   model = Pipeline( [ ("tr", transformer1()), ("est",Estimator()) ] )
+   model.fit(data['inp1'],data['target'])
+
+2. inp1,inp2,inp3,inp4,target
+   inp1      -> transformer1()
+   inp2      -> transformer2()
+   inp3,inp4 -> transformer3()
+       
+
+    multiple_transform = make_column_transformer( (transformer1(),['inp1']),
+                                                  (transformer2(),['inp2']),
+                                                  (transformer3(),['inp3','inp4']) )
+
+    model = Pipeline( [ ("multi", multiple_transform),
+                        ("est",Estimator()) ])
+    model.fit(data[['inp1','inp2','inp3','inp4']],data['target'])
+```
+                          
