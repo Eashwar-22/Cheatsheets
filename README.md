@@ -37,6 +37,11 @@
 
 **Pipelines**
 ```
+from sklearn.compose import make_column_transformer
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import FunctionTransformer
+
+
 * model = Pipeline([ ("name",Transformer), 
                      ("name",Estimator) ])
 * multiple_transform = make_column_transformer((Transformer,[columns]),
@@ -45,6 +50,23 @@
                                                )
   model = Pipeline([ ("name",multiple_transform) , 
                      ("name",Estimator) ])
+* Multiple transform involving custom transformers :
+
+  # Eg: add 1 to each value in the column(s)
+  def custom_transformer(X): 
+    return X+1
+    
+  custom_trans = FunctionTransformer(custom_transformer)
+  multiple_transform = make_column_transformer((Transformer,[columns]),
+                                               (Transformer,[columns]),
+                                               (custom_trans,[columns]), 
+                                                 ....
+                                               )
+  model = Pipeline([ ("name",multiple_transform) , 
+                     ("name",Estimator) ])
+  
+    
+
 
 Eg: 
 
@@ -55,14 +77,18 @@ Eg:
    model.fit(data['inp1'],data['target'])
 
 2. inp1,inp2,inp3,inp4,target
+
+   def custom_divide_by_1000(X):
+        return X/1000
+   
    inp1      -> transformer1()
    inp2      -> transformer2()
-   inp3,inp4 -> transformer3()
+   inp3,inp4 -> custom_divide_by_1000()
        
-
+    trans_custom=FunctionTransformer(custom_divide_by_1000)
     multiple_transform = make_column_transformer( (transformer1(),['inp1']),
                                                   (transformer2(),['inp2']),
-                                                  (transformer3(),['inp3','inp4']) )
+                                                  (trans_custom,['inp3','inp4']) )
 
     model = Pipeline( [ ("multi", multiple_transform),
                         ("est",Estimator()) ])
