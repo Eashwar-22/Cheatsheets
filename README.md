@@ -1,5 +1,15 @@
 # Cheatsheets
+
 ## For ML
+
+```
+download tensorflow on mac m1:
+1. create environment    ------> conda create -n tf tensorflow     (done)    
+2. using tf on jupyter   ------>  conda activate tf
+                                  conda install jupyter
+                                  python -m ipykernel install --user --name=tf.   (done)
+```
+
 
 * Estimator
 > Binary Classifier : Logistic regression
@@ -94,4 +104,4 @@ Eg:
                         ("est",Estimator()) ])
     model.fit(data[['inp1','inp2','inp3','inp4']],data['target'])
 ```
-                          
+                   
