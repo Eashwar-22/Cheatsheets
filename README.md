@@ -1,24 +1,39 @@
-# Cheatsheets
+# Cheatsheets : For ML
+---
+## Tensorflow
 
-## For ML
-
+* Download tensorflow on mac m1:
 ```
-download tensorflow on mac m1:
 1. create environment    ------> conda create -n tf tensorflow     (done)    
 2. using tf on jupyter   ------>  conda activate tf
                                   conda install jupyter
                                   python -m ipykernel install --user --name=tf.   (done)
 ```
+* Using Custom Callbacks: <br>
+If training has to stop once accuracy reaches 60%,
+```
+class myCallback(tf.keras.callbacks.Callback):
+  def on_epoch_end(self, epoch, logs={}):
+    if(logs.get('accuracy')>0.6):
+      print("\nReached 60% accuracy so cancelling training!")
+      self.model.stop_training = True
+      
+callbacks = myCallback()
 
+model.fit(x_train, y_train, epochs=10, callbacks=[callbacks])
+```
+
+
+---
+## ML Basic
 
 * Estimator
 > Binary Classifier : Logistic regression
 
 * Missing data
 > plot  :
->>sns.heatmap(df.isnull())  -   To look for missing values<br>
->>sns.boxplot()             -   To look for central tendency in order to impute<br>
-
+  sns.heatmap(df.isnull())  -   To look for missing values<br>
+  sns.boxplot()             -   To look for central tendency in order to impute<br>
 > remove column if >40% is missing
 
 * Plots : 
@@ -45,13 +60,16 @@ download tensorflow on mac m1:
 > precision, recall<br>
 > classification report<br>
 
-**Pipelines**
+---
+## ML Pipelines
+**Import**
 ```
 from sklearn.compose import make_column_transformer
 from sklearn.pipeline import Pipeline,make_pipeline
 from sklearn.preprocessing import FunctionTransformer
-
-
+```
+**Definition**
+```
 * model = Pipeline([ ("name",Transformer), 
                      ("name",Estimator) ])
 * multiple_transform = make_column_transformer((Transformer,[columns]),
@@ -77,29 +95,26 @@ from sklearn.preprocessing import FunctionTransformer
                                                )
   model = Pipeline([ ("name",multiple_transform) , 
                      ("name",Estimator) ])
-  
-    
+``` 
+**Eg:**
 
-
-Eg: 
-
-1. inp1, target
+1. inp1, target <br>
    inp1 -> transformer1()
-
+```
    model = Pipeline( [ ("tr", transformer1()), ("est",Estimator()) ] )
    model.fit(data['inp1'],data['target'])
+```
+2. inp1,inp2,inp3,inp4,inp5,inp6, target <br>
 
-2. inp1,inp2,inp3,inp4,inp5,inp6, target
-
-   def custom_divide_by_1000(X):
-        return X/1000
+   def custom_divide_by_1000(X): <br>
+        return X/1000<br>
    
-   inp1      -> transformer1()
-   inp2      -> transformer2()
-   inp3,inp4 -> custom_divide_by_1000()
-   inp5      -> first standard scale & then impute missing values
+   inp1      -> transformer1() <br>
+   inp2      -> transformer2() <br>
+   inp3,inp4 -> custom_divide_by_1000() <br>
+   inp5      -> first standard scale & then impute missing values <br>
    inp6      -> standard scale & custom_divide_by_1000()
-       
+```
     trans_custom=FunctionTransformer(custom_divide_by_1000)
     trans_scale_impute = make_pipeline(StandardScaler(),
                                        SimpleImputer(strategy="constant"))
