@@ -1,6 +1,13 @@
 # Setting up stuff
 
 ```
+**UPDATED**
+Startover - Install python, conda , tensorflow : https://github.com/mrdbourke/m1-machine-learning-test
+Note : Ignore python -m pip install tensorflow-metal ---> throws error while importing tensorflow
+
+
+
+
 download tensorflow on mac m1:
 1. create environment    ------> conda create -n tf tensorflow     (done)    
 2. using tf on jupyter   ------>  conda activate tf
