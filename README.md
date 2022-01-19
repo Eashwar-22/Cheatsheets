@@ -1,7 +1,21 @@
 # Setting up stuff
 
+#### Best method to install tensorflow : https://www.youtube.com/watch?v=ykCY_tJbhNw
 ```
-**UPDATED**
+
+Step 1: download & extract tensorflow_macos--> https://github.com/apple/tensorflow_macos/releases/download/v0.1alpha3/tensorflow_macos-0.1alpha3.tar.gz
+
+Step 2:
+conda create -n new_env python=3.8. (3.8 is a must)
+/Users/eashwar/Downloads/tensorflow_macos/install_venv.sh -p
+(give env path) /Users/eashwar/miniforge3/envs/nlp
+Click on y
+Test --> python ---> import tensorflow
+```
+
+
+```
+Another Method (not recommmended)
 Startover - Install python, conda , tensorflow : https://github.com/mrdbourke/m1-machine-learning-test
 Note : Ignore python -m pip install tensorflow-metal ---> throws error while importing tensorflow
 
